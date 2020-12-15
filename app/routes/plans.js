@@ -58,18 +58,36 @@ router.get('/api/plans/:id', (req, res) => {
 * URI:          /api/plans
 * Description:  Create a new Plan
 */
-router.post('/api/plans', (req, res) => {
-  Plan.create(req.body.plan)
-  // On a successful `create` action, respond with 201
-  // HTTP status and the content of the new plan.
-  .then((newPlan) => {
+router.post('/api/plans', async (req, res) => {
+  console.log("BODY PASSED IS", req.body)
+  try {
+    const newPlan = await Plan.create(req.body)
+    console.log("NEW PLAN IS ", newPlan)
+    // On a successful `create` action, respond with 201
+    // HTTP status and the content of the new plan.
     res.status(201).json({ plan: newPlan });
-  })
-  // Catch any errors that might occur
-  .catch((error) => {
-    res.status(500).json({ error: error });
-  });
+  } catch(err) {
+    res.status(500).json({ error: err });
+  }
 });
+
+// This is the same as the above async await, implemented differently
+// Both are good ****************************
+// router.post('/api/plans', (req, res) => {
+//   console.log("BODY PASSED IS", req.body)
+//   Plan.create(req.body)
+//   // On a successful `create` action, respond with 201
+//   // HTTP status and the content of the new plan.
+//   .then((newPlan) => {
+//     console.log("NEW PLAN IS ", newPlan)
+//     res.status(201).json({ plan: newPlan });
+//   })
+//   // Catch any errors that might occur
+//   .catch((error) => {
+//     res.status(500).json({ error: error });
+//   });
+// });
+
 
 /**
  * Action:      UPDATE
