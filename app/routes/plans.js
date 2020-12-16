@@ -96,11 +96,12 @@ router.post('/api/plans', async (req, res) => {
  * Description: Update An Plan by Plan ID
  */
 router.patch('/api/plans/:id', (req, res) => {
+  console.log("REQ.PARAMS.ID UPDATE", req.params.id, "BODY ", req.body)
   Plan.findById(req.params.id)
     .then((plan) => {
       if(plan) {
         // Pass the result of Mongoose's `.update` method to the next `.then`
-        return plan.update(req.body.plan);
+        return plan.update(req.body);
       } else {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
@@ -117,9 +118,39 @@ router.patch('/api/plans/:id', (req, res) => {
     })
     // Catch any errors that might occur
     .catch((error) => {
+      console.log(error)
       res.status(500).json({ error: error });
     });
 });
+
+
+// router.patch('/api/plans/:id', (req, res) => {
+//   console.log("REQ.PARAMS.ID UPDATE", req.params.id, "NAMED ", req.body)
+//   Plan.findById(req.params.id)
+//     .then((plan) => {
+//       if(plan) {
+//         // Pass the result of Mongoose's `.update` method to the next `.then`
+//         return plan.update(req.body.plan);
+//       } else {
+//         // If we couldn't find a document with the matching ID
+//         res.status(404).json({
+//           error: {
+//             name: 'DocumentNotFoundError',
+//             message: 'The provided ID doesn\'t match any documents'
+//           }
+//         });
+//       }
+//     })
+//     .then(() => {
+//       // If the update succeeded, return 204 and no JSON
+//       res.status(204).end();
+//     })
+//     // Catch any errors that might occur
+//     .catch((error) => {
+//       res.status(500).json({ error: error });
+//     });
+// });
+
 
 /**
 * Action:       DESTROY
