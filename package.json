@@ -1,6 +1,9 @@
 {
   "name": "retireapp-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.11.0"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -14,3 +17,4 @@
     "mongoose": "^5.9.3"
   }
 }
+
