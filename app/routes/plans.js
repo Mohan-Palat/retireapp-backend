@@ -14,6 +14,7 @@ const router = express.Router();
  * Description:   Get All Plans
  */
 router.get('/api/plans', (req, res) => {
+  console.log("Plans Reached Backend")
   Plan.find()
   // Return all Plans as an Array
   .then((allPlans) => {
